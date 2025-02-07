@@ -27,7 +27,7 @@ func _process(delta) -> void:
 		velocity = velocity.normalized() * speed
 		$Player_Animation.play("player_move")
 	else:
-		$Player_Animation.stop()
+		$Player_Animation.play("idle")
 		
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screen_size)
