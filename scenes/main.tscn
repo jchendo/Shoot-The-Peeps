@@ -1,10 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://dbnhabc63uwlb"]
+[gd_scene load_steps=18 format=3 uid="uid://dbnhabc63uwlb"]
 
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_1i4wv"]
 [ext_resource type="Texture2D" uid="uid://c2wm2hy525pkj" path="res://assets/Terrain/TX Tileset Grass.png" id="1_7t57d"]
 [ext_resource type="Texture2D" uid="uid://bhs6gyh0hnqev" path="res://assets/Resources/Trees/Tree.png" id="1_24wjt"]
 [ext_resource type="PackedScene" uid="uid://dib3repi28yf6" path="res://scenes/player.tscn" id="1_q33en"]
 [ext_resource type="Texture2D" uid="uid://cl4h1m5r7x4au" path="res://assets/Terrain/TX Tileset Stone Ground.png" id="2_8o6sd"]
+[ext_resource type="PackedScene" uid="uid://kd876yvv7ru4" path="res://scenes/goblin.tscn" id="2_r7a5t"]
 [ext_resource type="Texture2D" uid="uid://brsgvfpxrxlbt" path="res://assets/Terrain/TX Struct.png" id="3_4w1yx"]
+[ext_resource type="PackedScene" uid="uid://h2gn23tvfq76" path="res://scenes/arrow.tscn" id="3_dm3jl"]
 [ext_resource type="Texture2D" uid="uid://b4pjq78dd82qa" path="res://assets/Terrain/TX Tileset Wall.png" id="4_vi4ue"]
 [ext_resource type="PackedScene" uid="uid://y2nxmu2sxjgt" path="res://scenes/tree.tscn" id="7_pdqxr"]
 
@@ -56,7 +59,16 @@ sources/5 = SubResource("TileSetAtlasSource_h5p4k")
 sources/6 = SubResource("TileSetAtlasSource_31vfs")
 sources/0 = SubResource("TileSetAtlasSource_j5alf")
 
+[sub_resource type="Curve2D" id="Curve2D_7yixb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -11, -1, 0, 0, 0, 0, 1266, -4, 0, 0, 0, 0, 1266, 620, 0, 0, 0, 0, -12, 619, 0, 0, 0, 0, -11, -1)
+}
+point_count = 5
+
 [node name="main" type="Node2D"]
+script = ExtResource("1_1i4wv")
+mob_scene = ExtResource("2_r7a5t")
+arrow_scene = ExtResource("3_dm3jl")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-84, -27)
@@ -68,7 +80,7 @@ layer_1/tile_data = PackedInt32Array(327688, 524291, 0, 327696, 524291, 0, 32770
 
 [node name="Player" parent="." instance=ExtResource("1_q33en")]
 z_as_relative = false
-position = Vector2(54, -41)
+position = Vector2(629, 289)
 
 [node name="Tree" parent="." instance=ExtResource("7_pdqxr")]
 position = Vector2(566, 306)
@@ -78,3 +90,17 @@ position = Vector2(220, 390)
 
 [node name="Tree3" parent="." instance=ExtResource("7_pdqxr")]
 position = Vector2(352, 186)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_7yixb")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(-11, -1)
+rotation = -0.00234925
+
+[connection signal="player_hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

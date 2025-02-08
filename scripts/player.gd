@@ -1,11 +1,15 @@
 extends CharacterBody2D
 
 @export var speed = 300.0
+@export var health = 60
+
 var screen_size
+signal player_hit
+signal shoot
 
 func _ready():
 	screen_size = get_viewport_rect().size
-
+	
 func _process(delta) -> void:
 	
 	var velocity = Vector2.ZERO
@@ -34,6 +38,7 @@ func _process(delta) -> void:
 	if Input.is_action_pressed("shoot"):
 		## handle other shoot functions
 		$Bow_Animation.play("shoot")
+		shoot.emit()
 		
 	else:
 		$Bow_Animation.play("idle")
@@ -41,3 +46,5 @@ func _process(delta) -> void:
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screen_size)
 	#move_and_slide()
+
+	

@@ -182,7 +182,9 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
+position = Vector2(-1, 0)
 script = ExtResource("1_71i03")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_ow34j")
@@ -205,4 +207,10 @@ limit_left = 0
 limit_top = 0
 limit_bottom = 40
 
-[connection signal="shoot" from="." to="." method="_on_shoot"]
+[node name="health_bar" type="ColorRect" parent="."]
+offset_left = -29.0
+offset_top = -54.0
+offset_right = 31.0
+offset_bottom = -46.0
+color = Color(0, 1, 0, 1)
+metadata/_edit_use_anchors_ = true
