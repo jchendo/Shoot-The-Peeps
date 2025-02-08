@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-
 @export var speed = 300.0
 var screen_size
+
 func _ready():
 	screen_size = get_viewport_rect().size
 
@@ -13,8 +13,10 @@ func _process(delta) -> void:
 	if Input.is_action_pressed("move_left"):
 		velocity.x  -= 1
 		$Player_Animation.flip_h = true
+		$Bow_Animation.flip_h = true
 	elif Input.is_action_pressed("move_right"):
 		$Player_Animation.flip_h = false
+		$Bow_Animation.flip_h = false
 		velocity.x += 1
 	
 	# vertical movement
@@ -28,7 +30,14 @@ func _process(delta) -> void:
 		$Player_Animation.play("player_move")
 	else:
 		$Player_Animation.play("idle")
+	
+	if Input.is_action_pressed("shoot"):
+		## handle other shoot functions
+		$Bow_Animation.play("shoot")
 		
+	else:
+		$Bow_Animation.play("idle")
+	
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screen_size)
 	#move_and_slide()

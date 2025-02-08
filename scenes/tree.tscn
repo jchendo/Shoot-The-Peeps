@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://y2nxmu2sxjgt"]
+[gd_scene load_steps=12 format=3 uid="uid://y2nxmu2sxjgt"]
 
 [ext_resource type="Texture2D" uid="uid://bhs6gyh0hnqev" path="res://assets/Resources/Trees/Tree.png" id="1_k4rnh"]
-[ext_resource type="Script" path="res://scripts/tree.gd" id="2_iv561"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sw1pb"]
 atlas = ExtResource("1_k4rnh")
@@ -81,7 +80,6 @@ animations = [{
 size = Vector2(82.0244, 60.0511)
 
 [node name="Tree" type="Area2D"]
-script = ExtResource("2_iv561")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_bg2xt")
@@ -90,8 +88,4 @@ autoplay = "sway"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 48.0256)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_3wlsk")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
