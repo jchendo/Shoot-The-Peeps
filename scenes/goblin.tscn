@@ -104,7 +104,7 @@ animations = [{
 radius = 19.0
 height = 50.0
 
-[node name="Goblin" type="RigidBody2D"]
+[node name="Goblin" type="RigidBody2D" groups=["mobs"]]
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_h3pm8")

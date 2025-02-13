@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3ck6xkkw5o1m"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_2uu2u"]
+[ext_resource type="FontFile" uid="uid://b07tsgx7t6s5b" path="res://assets/UI/Font/FN OCTAHEDRON v1.0.otf" id="2_quj1n"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_2uu2u")
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_right = 25.0
+offset_bottom = 77.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_quj1n")
+theme_override_font_sizes/font_size = 64
+text = "0"
+
+[node name="Title" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -278.0
+offset_top = -43.5
+offset_right = 278.0
+offset_bottom = 43.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_quj1n")
+theme_override_font_sizes/font_size = 64
+text = "Shoot The Peeps!"
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -136.0
+offset_right = 76.0
+offset_bottom = -41.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_quj1n")
+theme_override_font_sizes/font_size = 64
+text = "Start"
+
+[node name="MessageTimer" type="Timer" parent="."]

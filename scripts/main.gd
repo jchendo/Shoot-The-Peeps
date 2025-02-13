@@ -1,6 +1,7 @@
 extends Node2D
 
 var score
+var goblins
 @export var damage = 6 ## how much damage the player/enemies take when hit
 @export var mob_scene : PackedScene
 @export var arrow_scene : PackedScene
@@ -32,11 +33,16 @@ func _on_mob_timer_timeout():
 	mob.linear_velocity = velocity.rotated(direction)
 	
 	add_child(mob)
+	goblins = get_tree().get_nodes_in_group("mobs")
 
 func _on_player_shoot() -> void:
 	var arrow = arrow_scene.instantiate()
-	arrow.position = $Player.position
-	var direction = arrow.position.angle_to_point($MobPath/MobSpawnLocation.position)
+	var direction = 0
+	var rand_goblin = goblins[randi_range(0, len(goblins)-1)]
+	var target = rand_goblin
+	
+	arrow.fire(target)
+		
 	var velocity = Vector2(100, 0)
 	
 	arrow.position += velocity
