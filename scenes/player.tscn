@@ -1,12 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://dib3repi28yf6"]
+[gd_scene load_steps=45 format=3 uid="uid://dib3repi28yf6"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_71i03"]
 [ext_resource type="Texture2D" uid="uid://ctwdv8lk75i41" path="res://assets/Factions/Knights/Troops/Archer/Archer + Bow/Archer_Bow_Blue.png" id="3_0n4jo"]
 [ext_resource type="Texture2D" uid="uid://cjh05cmmuy0v" path="res://assets/Factions/Knights/Troops/Archer/Archer + Bow/Archer_Blue_(NoArms).png" id="3_dmpm4"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ow34j"]
-radius = 21.0
-height = 48.0
+[ext_resource type="Texture2D" uid="uid://btiieqaikro32" path="res://assets/Factions/Knights/Troops/Archer/Blue/Archer_Blue.png" id="4_8evdt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_savm5"]
 atlas = ExtResource("3_dmpm4")
@@ -109,6 +106,38 @@ animations = [{
 atlas = ExtResource("3_0n4jo")
 region = Rect2(0, 0, 192, 192)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lhgl"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(0, 1152, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpoww"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(192, 1152, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywce7"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(384, 1152, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_372rs"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(576, 1152, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mulro"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(768, 1152, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgw45"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(960, 1152, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kp3vp"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(1152, 1152, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pqdp"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(1344, 1152, 192, 192)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_bog18"]
 atlas = ExtResource("3_0n4jo")
 region = Rect2(0, 192, 192, 192)
@@ -141,6 +170,38 @@ region = Rect2(1152, 192, 192, 192)
 atlas = ExtResource("3_0n4jo")
 region = Rect2(1344, 192, 192, 192)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjse7"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(0, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y81w7"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(192, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6axn"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(384, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_on0l7"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(576, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhpc7"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(768, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0j0c"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(960, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pd2w7"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(1152, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31fbg"]
+atlas = ExtResource("4_8evdt")
+region = Rect2(1344, 384, 192, 192)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_5uj0g"]
 animations = [{
 "frames": [{
@@ -150,6 +211,35 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lhgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpoww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywce7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_372rs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mulro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgw45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kp3vp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pqdp")
+}],
+"loop": false,
+"name": &"shoot_down",
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -176,18 +266,48 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hb3f1")
 }],
-"loop": true,
-"name": &"shoot",
-"speed": 12.0
+"loop": false,
+"name": &"shoot_horizontal",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjse7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y81w7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6axn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_on0l7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhpc7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0j0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pd2w7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31fbg")
+}],
+"loop": false,
+"name": &"shoot_up",
+"speed": 24.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ow34j"]
+radius = 21.0
+height = 48.0
+
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(-1, 0)
+collision_mask = 5
 script = ExtResource("1_71i03")
 metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_ow34j")
 
 [node name="Player_Animation" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -4)
@@ -198,14 +318,19 @@ frame_progress = 0.567364
 [node name="Bow_Animation" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -4)
 sprite_frames = SubResource("SpriteFrames_5uj0g")
-animation = &"idle"
+animation = &"shoot_up"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ow34j")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 visible = false
 ignore_rotation = false
 limit_left = 0
 limit_top = 0
-limit_bottom = 40
+limit_right = 84
+limit_bottom = 50
 
 [node name="health_bar" type="ColorRect" parent="."]
 offset_left = -29.0
@@ -214,3 +339,5 @@ offset_right = 31.0
 offset_bottom = -46.0
 color = Color(0, 1, 0, 1)
 metadata/_edit_use_anchors_ = true
+
+[connection signal="animation_finished" from="Bow_Animation" to="." method="_on_shoot_animation_finished"]

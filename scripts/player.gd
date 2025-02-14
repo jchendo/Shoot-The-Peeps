@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed = 300.0
+@export var speed = 350.0
 @export var health = 60
 
 var screen_size
@@ -8,10 +8,14 @@ signal player_hit
 signal shoot
 
 func _ready():
+	hide()
 	screen_size = get_viewport_rect().size
+	$Camera2D.limit_right = screen_size.x
+	$Camera2D.limit_bottom = screen_size.y
 	
 func _process(delta) -> void:
-	
+	if health <= 0:
+		queue_free()
 	var velocity = Vector2.ZERO
 	# horizontal movement
 	if Input.is_action_pressed("move_left"):
@@ -35,16 +39,13 @@ func _process(delta) -> void:
 	else:
 		$Player_Animation.play("idle")
 	
-	if Input.is_action_pressed("shoot"):
-		## handle other shoot functions
-		$Bow_Animation.play("shoot")
+	if Input.is_action_just_pressed("shoot"):
 		shoot.emit()
 		
-	else:
-		$Bow_Animation.play("idle")
-	
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screen_size)
-	#move_and_slide()
 
-	
+
+
+func _on_shoot_animation_finished() -> void:
+	$Bow_Animation.play("idle")

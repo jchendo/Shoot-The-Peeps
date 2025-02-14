@@ -77,9 +77,11 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3wlsk"]
-size = Vector2(82.0244, 60.0511)
+size = Vector2(107, 68.0511)
 
-[node name="Tree" type="Area2D"]
+[node name="Tree" type="StaticBody2D"]
+disable_mode = 1
+collision_layer = 4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_bg2xt")
@@ -87,5 +89,5 @@ animation = &"bumped_left"
 autoplay = "sway"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 48.0256)
+position = Vector2(-3.5, 44.0256)
 shape = SubResource("RectangleShape2D_3wlsk")
