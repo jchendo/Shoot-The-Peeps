@@ -58,5 +58,9 @@ text = "Start"
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="GameOverTimer" type="Timer" parent="."]
+wait_time = 1.5
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
+[connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]

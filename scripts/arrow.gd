@@ -1,6 +1,8 @@
 extends Area2D
 
 @export var speed = 300
+var arrow_dmg = 10
+signal hit_target
 var direction
 var target
 # Called when the node enters the scene tree for the first time.
@@ -19,9 +21,10 @@ func fire(_target):
 func _process(delta: float) -> void:
 	var velocity = Vector2(250,0)
 	var arrow_linear_velocity = velocity.rotated(direction)
-	fire(target)
-	rotation = direction
 	position += arrow_linear_velocity * delta
-
-func _on_area_entered(area: Area2D) -> void:
+	rotation = direction
+	fire(target)
+	
+func _on_body_entered(body: CharacterBody2D) -> void:
+	target.health -= 10
 	queue_free()

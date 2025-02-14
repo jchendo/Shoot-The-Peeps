@@ -159,19 +159,25 @@ animations = [{
 radius = 19.0
 height = 54.0
 
-[node name="Goblin" type="Area2D" groups=["mobs"]]
+[node name="Goblin" type="CharacterBody2D" groups=["mobs"]]
+disable_mode = 1
 collision_layer = 4
-collision_mask = 3
+collision_mask = 11
+motion_mode = 1
+slide_on_ceiling = false
+safe_margin = 0.001
 script = ExtResource("1_h3pm8")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xdwv5")
-animation = &"death"
+animation = &"hit1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_vf5sn")
 
-[connection signal="area_entered" from="." to="." method="_on_arrow_entered"]
-[connection signal="body_entered" from="." to="." method="_on_player_hit"]
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.501
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_death_animation_finished"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

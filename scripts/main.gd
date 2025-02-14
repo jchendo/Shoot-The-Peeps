@@ -10,19 +10,30 @@ func _ready() -> void:
 	pass ## play music and stuff
 	
 func _on_game_start() -> void:
+	set_process(true)
+	score = 0
+	$Player.health = 60
+	$Player/health_bar.size.x = 60
 	$MobTimer.start()
+	$MobTimer.timeout
 	$Player.show()
-	$ScoreTimer.start()
+
+func _on_game_over() -> void:
+	$Player.hide()
+	$MobTimer.stop()
+	$HUD/Title.text = 'Game Over!!'
+	$HUD/Title.show()
+	$HUD/GameOverTimer.start()
+	for goblin in goblins:
+		goblin.queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	goblins = get_tree().get_nodes_in_group("mobs")
 	if $Player.health <= 0:
-		$Player.hide()
-		$MobTimer.stop()
-		$ScoreTimer.stop()
-		#for goblin in goblins:
-		#	goblin.hide()
-
+		_on_game_over()
+		set_process(false)
+		
 func _on_player_hit():
 	$Player.get_node("health_bar").size.x -= damage
 	$Player.health -= damage
@@ -36,34 +47,38 @@ func _on_mob_timer_timeout():
 	mob.position = mob_spawn_location.position
 	
 	mob.hunt_player($Player)
+	mob.connect("died", _increase_score)
 	mob.connect("hit_player", _on_player_hit)
+	mob.connect("hit_goblin", _on_goblin_hit)
 	add_child(mob)
 
 func _on_player_shoot() -> void:
-	goblins = get_tree().get_nodes_in_group("mobs")
 	var arrow = arrow_scene.instantiate()
 	var delta = INF
 	var target
-	for goblin in goblins:
-		## shoot at the closest goblin by comparing positions
-		if ($Player.position - goblin.position).length_squared() < delta:
-			delta = ($Player.position - goblin.position).length_squared()
-			target = goblin
+	if not get_tree().get_nodes_in_group("mobs").is_empty():
+		for goblin in goblins:
+			## shoot at the closest goblin by comparing positions
+			if ($Player.position - goblin.position).length_squared() < delta:
+				delta = ($Player.position - goblin.position).length_squared()
+				target = goblin
 	
-	delta = target.position - $Player.position ## repurposing delta for animation selection
-	if delta.y < -75: ## enemy above
-		$Player/Bow_Animation.play("shoot_up")
-	elif delta.y > 75: ## below
-		$Player/Bow_Animation.play("shoot_down")
-	else:
-		$Player/Bow_Animation.play("shoot_horizontal")
-			
-	arrow.position = $Player.position
-	arrow.fire(target)
-	
-	add_child(arrow)
+		delta = target.position - $Player.position ## repurposing delta for animation selection
+		if delta.y < -75: ## enemy above
+			$Player/Bow_Animation.play("shoot_up")
+		elif delta.y > 75: ## below
+			$Player/Bow_Animation.play("shoot_down")
+		else:
+			$Player/Bow_Animation.play("shoot_horizontal")
+		
+		arrow.position = $Player.position
+		arrow.fire(target)
+		add_child(arrow)
 
 func _increase_score():
 	score += 1
 	$HUD/ScoreLabel.text = str(score)
-	$MobTimer.set_wait_time(1.5-(0.05*score)) ## increase goblin spawn rate
+	$MobTimer.set_wait_time(1.5-(0.025*score)) ## increase goblin spawn rate
+
+func _on_goblin_hit():
+	pass
