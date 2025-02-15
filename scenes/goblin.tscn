@@ -1,8 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://kd876yvv7ru4"]
+[gd_scene load_steps=26 format=3 uid="uid://kd876yvv7ru4"]
 
 [ext_resource type="Texture2D" uid="uid://dk55fwcplv0ds" path="res://assets/Factions/Goblins/Troops/Torch/Red/Torch_Red.png" id="1_fg2jn"]
 [ext_resource type="Script" path="res://scripts/goblin.gd" id="1_h3pm8"]
 [ext_resource type="Texture2D" uid="uid://dct01tyv6jmph" path="res://assets/Effects/Fire/Fire.png" id="3_v71q2"]
+[ext_resource type="AudioStream" uid="uid://ep6krgv6pcuf" path="res://assets/Music/Goblin Scream.wav" id="4_uc3m2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vf5sn"]
+radius = 19.0
+height = 54.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxqoi"]
 atlas = ExtResource("3_v71q2")
@@ -155,29 +160,27 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vf5sn"]
-radius = 19.0
-height = 54.0
-
 [node name="Goblin" type="CharacterBody2D" groups=["mobs"]]
-disable_mode = 1
 collision_layer = 4
-collision_mask = 11
+collision_mask = 3
 motion_mode = 1
 slide_on_ceiling = false
-safe_margin = 0.001
 script = ExtResource("1_h3pm8")
 metadata/_edit_group_ = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_xdwv5")
-animation = &"hit1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_vf5sn")
 
 [node name="HitTimer" type="Timer" parent="."]
-wait_time = 0.501
 
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_death_animation_finished"]
+[node name="Death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_uc3m2")
+volume_db = -22.687
+pitch_scale = 0.77
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xdwv5")
+animation = &"hit1"
+
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_death_animation_finished"]

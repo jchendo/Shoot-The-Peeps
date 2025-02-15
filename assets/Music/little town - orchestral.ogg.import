@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://df02gfljhg50v"
+path="res://.godot/imported/little town - orchestral.ogg-cec430fbde23ff07f70da36e0bfa1118.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/Music/little town - orchestral.ogg"
+dest_files=["res://.godot/imported/little town - orchestral.ogg-cec430fbde23ff07f70da36e0bfa1118.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

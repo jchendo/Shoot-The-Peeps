@@ -1,9 +1,11 @@
-[gd_scene load_steps=45 format=3 uid="uid://dib3repi28yf6"]
+[gd_scene load_steps=47 format=3 uid="uid://dib3repi28yf6"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_71i03"]
 [ext_resource type="Texture2D" uid="uid://ctwdv8lk75i41" path="res://assets/Factions/Knights/Troops/Archer/Archer + Bow/Archer_Bow_Blue.png" id="3_0n4jo"]
 [ext_resource type="Texture2D" uid="uid://cjh05cmmuy0v" path="res://assets/Factions/Knights/Troops/Archer/Archer + Bow/Archer_Blue_(NoArms).png" id="3_dmpm4"]
 [ext_resource type="Texture2D" uid="uid://btiieqaikro32" path="res://assets/Factions/Knights/Troops/Archer/Blue/Archer_Blue.png" id="4_8evdt"]
+[ext_resource type="AudioStream" uid="uid://lwblidclnj4q" path="res://assets/Music/Footstep_Dirt_01.mp3" id="5_pjjcx"]
+[ext_resource type="AudioStream" uid="uid://ybn3yni4si7b" path="res://assets/Music/shoot.ogg" id="6_n5yjs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_savm5"]
 atlas = ExtResource("3_dmpm4")
@@ -335,11 +337,21 @@ limit_right = 1280
 limit_bottom = 920
 
 [node name="health_bar" type="ColorRect" parent="."]
+z_index = 1
 offset_left = -29.0
 offset_top = -54.0
 offset_right = 31.0
 offset_bottom = -46.0
 color = Color(0, 1, 0, 1)
 metadata/_edit_use_anchors_ = true
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_pjjcx")
+volume_db = -11.273
+
+[node name="Bow" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_n5yjs")
+volume_db = -10.283
+pitch_scale = 1.49
 
 [connection signal="animation_finished" from="Bow_Animation" to="." method="_on_shoot_animation_finished"]

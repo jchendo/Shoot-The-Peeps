@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dbnhabc63uwlb"]
+[gd_scene load_steps=24 format=3 uid="uid://dbnhabc63uwlb"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_1i4wv"]
 [ext_resource type="Texture2D" uid="uid://c2wm2hy525pkj" path="res://assets/Terrain/TX Tileset Grass.png" id="1_7t57d"]
@@ -11,6 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://b3ck6xkkw5o1m" path="res://scenes/hud.tscn" id="4_e8i7w"]
 [ext_resource type="Texture2D" uid="uid://b4pjq78dd82qa" path="res://assets/Terrain/TX Tileset Wall.png" id="4_vi4ue"]
 [ext_resource type="PackedScene" uid="uid://y2nxmu2sxjgt" path="res://scenes/tree.tscn" id="7_pdqxr"]
+[ext_resource type="PackedScene" uid="uid://dvduasbeqy0cr" path="res://scenes/sheep.tscn" id="12_ym70r"]
+[ext_resource type="PackedScene" uid="uid://4vc523m1ljoo" path="res://scenes/safezone.tscn" id="13_52rl7"]
+[ext_resource type="AudioStream" uid="uid://dgcvoow752ndx" path="res://assets/Music/death.wav" id="14_ekt6k"]
+[ext_resource type="AudioStream" uid="uid://df02gfljhg50v" path="res://assets/Music/little town - orchestral.ogg" id="15_ksaby"]
+[ext_resource type="AudioStream" uid="uid://bb4yucdr7sxii" path="res://assets/Music/gameover.wav" id="16_dvupo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j5alf"]
 texture = ExtResource("1_24wjt")
@@ -77,6 +82,7 @@ arrow_scene = ExtResource("3_dm3jl")
 [node name="HUD" parent="." instance=ExtResource("4_e8i7w")]
 
 [node name="TileMap" type="TileMap" parent="."]
+z_index = -1
 y_sort_enabled = true
 position = Vector2(-80, -31)
 tile_set = SubResource("TileSet_ayw74")
@@ -87,8 +93,12 @@ layer_0/tile_data = PackedInt32Array(2490389, 131078, 12, 2359344, 3, 0, 2359352
 layer_1/name = "Layer1"
 layer_1/tile_data = PackedInt32Array(327688, 524291, 0, 327696, 524291, 0, 327704, 524291, 0, 851992, 524291, 0, 851984, 524291, 0, 851976, 524291, 0, 327712, 524291, 0, 852000, 524291, 0, 1376264, 3, 0, 1376272, 524291, 0, 327697, 3, 0, 1835016, 524291, 8, 1835024, 524291, 8, 2359312, 3, 8, 2359304, 3, 1342177288, 1900560, 524291, 1342177288, 1376280, 3, 0, 1900568, 3, 0, 2359320, 3, 1610612744, 2359328, 524291, 0, 1835040, 524291, 0, 1376288, 3, 0, 327720, 3, 0, 327728, 3, 0, 327736, 3, 0, 327744, 3, 0, 327752, 3, 0, 327760, 3, 0, 852008, 524291, 0, 327737, 524291, 0, 852037, 524291, 0, 852016, 3, 0, 1376296, 3, 0, 1376304, 3, 0, 852024, 3, 0, 852032, 3, 0, 852045, 3, 0, 852048, 3, 0, 1900584, 3, 0, 1900592, 3, 0, 1376312, 3, 0, 1376320, 3, 0, 1376328, 3, 0, 1376336, 3, 0, 1900600, 524291, 0, 1900624, 524291, 0, 1900616, 524291, 0, 1900608, 524291, 0, 2359336, 524291, 8, 2883616, 3, 8, 3276832, 3, 8, 3080217, 131077, 1879048194, 2490398, 131078, 12, 2490404, 131078, 12, 2490408, 131078, 12, 2490393, 131078, 12, 2490386, 131078, 12, 2490387, 131078, 12, 2490389, 131078, 12, 2490390, 131078, 12, 2490388, 131078, 12, 2490379, 131078, 12, 2490391, 131078, 12, 2490392, 131078, 12, 2490372, 131078, 12, 2490376, 131078, 12, 2490400, 131078, 12, 2490414, 131078, 12, 2490419, 131078, 12, 2490424, 131078, 12, 2490428, 131078, 12, 2490433, 131078, 12, 2490438, 131078, 12, 2490442, 131078, 12, 2490447, 131078, 12, 2490449, 131078, 12)
 
+[node name="SafeZone" parent="." instance=ExtResource("13_52rl7")]
+z_index = -1
+position = Vector2(576, 243)
+
 [node name="Player" parent="." instance=ExtResource("1_q33en")]
-z_as_relative = false
+y_sort_enabled = true
 position = Vector2(629, 289)
 
 [node name="Tree" parent="." instance=ExtResource("7_pdqxr")]
@@ -120,7 +130,7 @@ position = Vector2(1099, 469)
 position = Vector2(824, 169)
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 5.0
 
 [node name="MobPath" type="Path2D" parent="."]
 position = Vector2(0, -337.821)
@@ -131,8 +141,34 @@ curve = SubResource("Curve2D_7yixb")
 position = Vector2(-11, -1)
 rotation = -0.00234925
 
+[node name="Sheep" parent="." instance=ExtResource("12_ym70r")]
+position = Vector2(512, -127)
+
+[node name="Sheep2" parent="." instance=ExtResource("12_ym70r")]
+position = Vector2(384, 321)
+
+[node name="Sheep3" parent="." instance=ExtResource("12_ym70r")]
+position = Vector2(1048, -55)
+
+[node name="Sheep4" parent="." instance=ExtResource("12_ym70r")]
+position = Vector2(136, 49)
+
+[node name="Sheep5" parent="." instance=ExtResource("12_ym70r")]
+position = Vector2(880, -263)
+
+[node name="Death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_ekt6k")
+volume_db = -25.148
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_ksaby")
+volume_db = -15.49
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_dvupo")
+volume_db = -7.376
+
 [connection signal="start" from="HUD" to="." method="_on_game_start"]
 [connection signal="start" from="HUD" to="HUD" method="_on_start"]
-[connection signal="player_hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

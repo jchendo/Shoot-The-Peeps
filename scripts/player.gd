@@ -4,7 +4,6 @@ extends CharacterBody2D
 @export var health = 12
 
 var screen_size
-signal player_hit
 signal shoot
 
 func _ready():
@@ -35,15 +34,20 @@ func _process(delta) -> void:
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		$Player_Animation.play("player_move")
+		if $Footsteps.playing == false:
+			$Footsteps.play()
 	else:
 		$Player_Animation.play("idle")
 	
 	if Input.is_action_just_pressed("shoot"):
 		shoot.emit()
+		if $Bow.playing == false:
+			$Bow.play()
 		
 	#position += velocity * delta
 	position = position.clamp(Vector2(0, -300), screen_size)
 	move_and_slide()
+	
 
 func _on_shoot_animation_finished() -> void:
 	$Bow_Animation.play("idle")

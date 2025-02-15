@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://4vc523m1ljoo"]
+
+[ext_resource type="Script" path="res://scenes/safezone.gd" id="1_5imev"]
+[ext_resource type="Texture2D" uid="uid://c6hg215djkfto" path="res://assets/UI/safezone.png" id="2_hk2oj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ntrng"]
+size = Vector2(154.5, 154.5)
+
+[node name="SafeZone" type="StaticBody2D"]
+collision_mask = 4
+script = ExtResource("1_5imev")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(45.25, 37.25)
+shape = SubResource("RectangleShape2D_ntrng")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(44, 36)
+scale = Vector2(0.528, 0.528)
+texture = ExtResource("2_hk2oj")

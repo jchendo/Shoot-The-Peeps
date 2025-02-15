@@ -7,18 +7,28 @@ var goblins
 @export var arrow_scene : PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass ## play music and stuff
+	$Music.play()
 	
 func _on_game_start() -> void:
+	
 	set_process(true)
+	$SafeZone.show()
+	$Music.stream_paused = false
 	score = 0
+	
+	$MobTimer.set_wait_time(1.5)
 	$Player.health = 60
 	$Player/health_bar.size.x = 60
-	$MobTimer.start()
-	$MobTimer.timeout
+	$Player.position = Vector2(630,275)
 	$Player.show()
+	
+	$MobTimer.start()
 
 func _on_game_over() -> void:
+	$Music.stream_paused = true
+	$Music.play()
+	$Death.play()
+	$GameOver.play()
 	$Player.hide()
 	$MobTimer.stop()
 	$HUD/Title.text = 'Game Over!!'
@@ -26,7 +36,6 @@ func _on_game_over() -> void:
 	$HUD/GameOverTimer.start()
 	for goblin in goblins:
 		goblin.queue_free()
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	goblins = get_tree().get_nodes_in_group("mobs")
@@ -59,21 +68,28 @@ func _on_player_shoot() -> void:
 	if not get_tree().get_nodes_in_group("mobs").is_empty():
 		for goblin in goblins:
 			## shoot at the closest goblin by comparing positions
-			if ($Player.position - goblin.position).length_squared() < delta:
-				delta = ($Player.position - goblin.position).length_squared()
-				target = goblin
-	
-		delta = target.position - $Player.position ## repurposing delta for animation selection
-		if delta.y < -75: ## enemy above
-			$Player/Bow_Animation.play("shoot_up")
-		elif delta.y > 75: ## below
-			$Player/Bow_Animation.play("shoot_down")
+			if goblin not in get_tree().get_nodes_in_group("untargetables"):
+				if ($Player.position - goblin.position).length_squared() < delta:
+					delta = ($Player.position - goblin.position).length_squared()
+					target = goblin
+				else:
+					continue
+			else:
+				continue
+		if target != null:
+			delta = target.position - $Player.position ## repurposing delta for animation selection
+			if delta.y < -75: ## enemy above
+				$Player/Bow_Animation.play("shoot_up")
+			elif delta.y > 75: ## below
+				$Player/Bow_Animation.play("shoot_down")
+			else:
+				$Player/Bow_Animation.play("shoot_horizontal")
+			
+			arrow.position = $Player.position
+			arrow.fire(target)
+			add_child(arrow)
 		else:
-			$Player/Bow_Animation.play("shoot_horizontal")
-		
-		arrow.position = $Player.position
-		arrow.fire(target)
-		add_child(arrow)
+			pass
 
 func _increase_score():
 	score += 1
